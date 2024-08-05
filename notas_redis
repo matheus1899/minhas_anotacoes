@@ -1,0 +1,80 @@
+=== REDIS ===
+Instalar o WSL (Windows Subsystem Linux)
+No Powershell, execute o comando: 
+wsl --list --install //Ele irá listar as distribuições Linux disponíveis para instalação
+
+No caso eu escolhi o Debian
+Instale a distribuição escolhida: 
+wsl --install -d Debian
+
+Será necessario a criação de um usuario e senha para o Linux, porem vamos pular essa parte.
+
+Executamos o Linux, e vamos atualizar o apt-get: 
+sudo apt-get update
+
+Em seguida vamos instalar o Redis:
+sudo apt-get install redis
+
+Para iniciar o servidor do Redis, use:
+sudo service redis-server start
+
+Para conectar no Redis, use:
+redis-cli
+
+Para testar se a conexão funcionou, use:
+ping
+ou
+ECHO "mensagem"
+
+
+Para adicionar um atributo, use:
+SET "nome_da_chave" valor
+
+Para consultar o valor de uma chave, use:
+GET "nome_da_chave"
+
+Para consultar todas as chaves, utilize:
+KEYS *
+
+Para deletar utilize, DEL. Exemplo:
+DEL "nome_da_chave"
+
+Um padrão que é interessante utilizar no nome das chaves é a separação por :(dois pontos).
+Dessa forma, o nome fica bem mais estruturado e facil de ser consultado posteriormente. Exemplo:
+
+resultado:03-05-2024:megasena "1,2,3,4,5,6"
+
+É possivel adicionar, num unico comando, inumeros atributos a serem salvos no Redis. Exemplo:
+
+MSET "nome_da_chave01" valor01 "nome_da_chave02" valor02 "nome_da_chave03" valor03
+
+Para consultar as chaves, é possível utilizar padrão nas consultas. Exemplo
+KEYS "resultado*" --Tudo que começa com a palavra resultado
+KEYS "resultado:*-05-2024:megasena" --Tudo que começa com resultado, seja de maio de 2024 e seja da megasena.
+KEYS "resultado:1?-05-2024:megasena" --Tudo que começa com resultado e tenha um unico caracter após o algarismo 1 e seja da megasena
+KEYS "resultado:?[37]-??-????:megasena" --Tudo que começa com resultado e que tenha no ultimo caracter do dia o numero 3 ou 7 e seja da megasena
+
+Para setar multiplos valores dentro de um mesma chave utilize o comando HSET (hashes). Exemplo
+HSET resultado:24-05-2024:megasena "numeros" "1,2,3,4,5,6"
+HSET resultado:24-05-2024:megasena "qtde_ganhadores" 3
+
+A estrutura, se desenhada, ficaria mais ou menos assim:
+  resultado:24-05-2024:megasena
+    |_ "numeros" => "1,2,3,4,5,6"
+    |_ "qtde_ganhadores" => 3
+
+
+E para consultar utilizamos o HGET. Exemplos:
+HGET resultado:24-05-2024:megasena "numeros"
+HGET resultado:24-05-2024:megasena "qtde_ganhadores"
+
+GET resultado:24-05-2024:megasena   -- Gera erro
+HSET resultado:24-05-2024:megasena  -- Gera erro
+
+Para deletar um atributos hash, utilizamos HDEL. Exemplo:
+HDEL resultado:24-05-2024:megasena "numeros"
+
+
+Podemos utilizar o comando HMSET para atribuir inumeros campos dentro de uma mesma chave. Exemplo
+
+HMSET resultado:24-05-2024:megasena numeros "7,8,9,10,11,12"  
