@@ -175,7 +175,7 @@ LPUSH noticias 'Piada sobre bebida favorita do Gugu, revolta a internet'
 LPUSH noticias 'Moda ou simplesmente burrice: o tema da Terra plana"
 
 
-Para "aparar" a lista, utilizamos o comando LTRIM. Passa o range dos itens que queremos manter. Exemplo:
+Para "aparar" a lista, utilizamos o comando LTRIM. Passa-se o range dos itens que queremos manter. Exemplo:
 LTRIM noticias 0 1 --No caso se houver itens na posição 2 ou maior, elas serão apagadas.
 
 Para realizar a leitura de um elemento de uma lista, utilize o comando LINDEX. Exemplo:
@@ -183,6 +183,12 @@ LINDEX noticias 0 -- Zero sendo o index do elemento na lista.
 
 Para sabermos o tamanho atual da nossa lista, usamos o comando LLEN. Exemplo:
 LLEN noticias -- O retorno é 2
+
+Para consultar varios valores de uma lista utilize o comando LRANGE. Exemplo: 
+LRANGE noticias 0 1 --Se o valor final for maior que a quantidade total, ele não gera erro, mostra tudo que existe na lista.
+
+
+
 
 
 
