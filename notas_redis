@@ -76,5 +76,13 @@ HDEL resultado:24-05-2024:megasena "numeros"
 
 
 Podemos utilizar o comando HMSET para atribuir inumeros campos dentro de uma mesma chave. Exemplo
+HMSET resultado:28-06-2024:megasena "numeros" "7,8,9,10,11,12"  "qtde_ganhadores" "3"
 
-HMSET resultado:24-05-2024:megasena numeros "7,8,9,10,11,12"  
+Para consultar todos os atributos de um hash, utilizamos o comando HGETALL. Exemplo
+HGETALL "resultado:28-06-2024:megasena"
+
+O resultado é:
+1) "numeros"
+2) "7,8,9,10,11,12"
+3) "qtde_ganhadores"
+4) "3"

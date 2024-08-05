@@ -1,0 +1,50 @@
+=== ANOTAÇÕES - CURSO DE ANGULAR ===
+Pasta node_modules              = Dependências do projeto
+Arquivo package-lock.json       = Lista as dependencias. Utilizado pelo npm(Seria como o pom.xml do Spring Boot?). Tb podemos usam o yarn.
+Arquivo package.json            = Lista as dependências (npm)
+    |
+    |---------> devDependencies = dependências do ambiente de desenvolvimento
+    |---------> dependencies    = dependências do ambiente produtivo.
+
+Arquivo tsconfig.json           = Arquivo de configuração do Typescript
+Arquivo tsconfig.app.json       = Arquivo de configuração do Typescript
+Arquivo tsconfig.spec.json      = Arquivo de configuração do Typescript
+
+Arquivo karma.conf.js           = Arquivo de configuração do Karma
+Arquivo angular.json            = Arquivo de configurações do projeto (Um application.yaml do Angular)
+
+Arquivo environment.prod.ts     = env conf de produção
+Arquivo environment.ts          = env conf de dev/hk
+
+Arquivo app.component.ts        = Arquivo principal da aplicação(regra de negocio)
+Arquivo app.component.spec.ts   = Arquivo de configurações(especificações) de testes unitários do componente
+Arquivo app.component.scss      = Arquivo de estilos do componente
+Arquivo app.module.ts           = Moduo principal da aplicação
+Arquivo app.component.html      = Esqueleto do componente
+Arquivo app-routing-module-ts   =
+Arquivo test.ts                 = Configuração de test(Jasmine+Karma)
+Arquivo polyfills.ts            = Suporte à browsers antigos
+Arquivo main.ts                 =
+
+Arquivo .browserslistrc         = Suporte das versões dos navegadores
+
+RxJS                    = Eventos, observadores, chamadas HTTP...
+TSLib                   = TypeScript
+Zone.js                 = Obrigatorio no Angular
+Jasmine                 = Biblioteca para testes do Angular
+Karma                   = Biblioteca para testes do Angular
+
+Compilação do Angular é incremental(ao modificar e salvar, ele irá recompilar apenas o que foi alterado)
+
+== Comandos ==
+node -v (verificar se a instalação ocorreu corretamente)
+npm install -g @angular/cli (Ferramenta de terminal que possibilita a criação de projetos e componentes, build)
+ng --version (Verfica a versão do Angular CLI instalado)
+ng new nome_do_projeto (Para criar um novo projeto)
+ng serve => Build e run do projeto subindo o servidor local. Permite alterar e visualisar a mudança no front
+ng add @angular/material (Instala o Angular Material. Ao usar o ng, ele ja atualiza o package.json alem de criar arquivos no projeto.)
+ng generate module nome_do_modulo OU ng g m nome_do_modulo (Cria um modulo)
+ng generate module nome_do_modulo --routing (Cria o modulo com o roteamento)
+ng generate componente nome_do_componente
+ng generate componente nome_do_modulo/nome_do_componente
+ng generate service nome_do_service
