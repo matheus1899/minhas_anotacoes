@@ -86,3 +86,30 @@ O resultado é:
 2) "7,8,9,10,11,12"
 3) "qtde_ganhadores"
 4) "3"
+
+Para setar a tempo de expiração de uma informação, utilize o comando EXPIRE. Exemplo.
+EXPIRE "sessao:usuario:1000" 1800 -- Valor em segundos
+
+Para consultar o tempo que falta para expirar uma informação utilize o comando TTL(Time left). Exemplo:
+TTL "sessao:usuario:1000"
+
+Para retornar o tempo em milissegundos, utilize o comando PTTL. Exemplo:
+PTTL "sessao:usuario:1000"
+
+Para incrementar em um, algum valor, utilize o comando INCR. Exemplo:
+INCR pagina:/contato:25-05-2024
+
+Para decrementar em um, algum valor, utilize o comando DECR. Exemplo:
+DECR pagina:/contato:25-05-2024
+
+Para incrementar um valor inteiro qualquer, utilize o comando INCRBY. Exemplo:
+INCRBY compras:25-05-2024:valor 15
+
+Para decrementar um valor inteiro qualquer, utilize o comando INCRBY. Exemplo:
+DECRBY compras:25-05-2024:valor 24
+
+Para incrementar um valor float qualquer, utilize o comando INCRBYFLOAT. Exemplo:
+INCRBYFLOAT compras:25-05-2024:valor 15.25
+
+Para decrementar um valor float qualquer, utilize o comando INCRBYFLOAT. Exemplo:
+DECRBYFLOAT compras:25-05-2024:valor 24.82
