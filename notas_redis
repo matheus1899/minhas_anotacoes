@@ -113,3 +113,65 @@ INCRBYFLOAT compras:25-05-2024:valor 15.25
 
 Para decrementar um valor float qualquer, utilize o comando INCRBYFLOAT. Exemplo:
 DECRBYFLOAT compras:25-05-2024:valor 24.82
+
+Para salvar um booleano, utilize o comando SETBIT. Exemplo:
+SETBIT acesso:25-05-2024 30 1 (30 é o id e 1 é o valor)
+SETBIT acesso:25-05-2024 54 1 (54 é o id e 1 é o valor)
+
+SETBIT acesso:26-05-2024 30 1
+SETBIT acesso:26-05-2024 19 1
+
+SETBIT acesso:27-05-2024 30 1
+SETBIT acesso:27-05-2024 54 1
+SETBIT acesso:27-05-2024 19 1
+
+Para recuperar um valor booleano, utilize o comando GETBIT. Exemplo:
+GETBIT acesso:25-05-2024 30
+
+Para recuperar a quantidade de valores "true" de uma matriz de bit, utilizamos o comando BITCOUNT. Exemplo:
+BITCOUNT "acesso:25-05-2024" -- Retorna 2
+
+Para comparar duas ou mais sequências de bits, é necessário gerar um nova sequência de bits, fruto dessa comparação. Nesse caso utilizamos o comando BITOP (OPeração). Mas ele não funciona sozinho. No caso vamos associar ele ao comando AND e vamos comparar essas sequências. Exemplo:
+      ________________________________________________
+     |  25-05-2024  |  26-05-2024  |  25-e-26-05-2024 |
+ 30. |      X       |      X       |        X         |
+ 54. |      X       |              |                  |
+ 19. |              |      X       |                  |
+
+Para gerar a sequência com a informações de comparação entre os dias 25 e 26 usaremos o seguinte comando:
+BITOP AND "acesso:25-e-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
+
+Para consultar a nova sequência gerada, digitamos os comandos abaixo:
+GETBIT acesso:25-e-26-05-2024 30 -- Retorno é 1
+GETBIT acesso:25-e-26-05-2024 54 -- Retorno é 0
+GETBIT acesso:25-e-26-05-2024 19 -- Retorno é 0
+
+BITCOUNT acesso:25-e-26-05-2024  -- Retorno é 1
+
+
+
+Para queremos utiliza outra operação condicional. Usaremos o OR para comparar quem acessou a aplicação em qualquer dia. Segue o comando:
+BITOP OR "acesso:25-ou-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
+      ________________________________________________
+     |  25-05-2024  |  26-05-2024  | 25-ou-26-05-2024 |
+ 30. |      X       |      X       |        X         |
+ 54. |      X       |              |        X         |
+ 19. |              |      X       |        X         |
+
+Para consultar a nova sequência gerada digitamos os comandos abaixo:
+GETBIT acesso:25-ou-26-05-2024 30 -- Retorno é 1
+GETBIT acesso:25-ou-26-05-2024 54 -- Retorno é 1
+GETBIT acesso:25-ou-26-05-2024 19 -- Retorno é 1
+
+BITCOUNT acesso:25-ou-26-05-2024  -- Retorno é 3
+
+
+
+
+
+
+
+
+
+
+
