@@ -132,11 +132,12 @@ Para recuperar a quantidade de valores "true" de uma matriz de bit, utilizamos o
 BITCOUNT "acesso:25-05-2024" -- Retorna 2
 
 Para comparar duas ou mais sequências de bits, é necessário gerar um nova sequência de bits, fruto dessa comparação. Nesse caso utilizamos o comando BITOP (OPeração). Mas ele não funciona sozinho. No caso vamos associar ele ao comando AND e vamos comparar essas sequências. Exemplo:
-      ________________________________________________
+      ______________ ______________ __________________
      |  25-05-2024  |  26-05-2024  |  25-e-26-05-2024 |
  30. |      X       |      X       |        X         |
  54. |      X       |              |                  |
  19. |              |      X       |                  |
+      -------------- -------------- ------------------
 
 Para gerar a sequência com a informações de comparação entre os dias 25 e 26 usaremos o seguinte comando:
 BITOP AND "acesso:25-e-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
@@ -152,11 +153,12 @@ BITCOUNT acesso:25-e-26-05-2024  -- Retorno é 1
 
 Para queremos utiliza outra operação condicional. Usaremos o OR para comparar quem acessou a aplicação em qualquer dia. Segue o comando:
 BITOP OR "acesso:25-ou-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
-      ________________________________________________
+      ______________ ______________ __________________
      |  25-05-2024  |  26-05-2024  | 25-ou-26-05-2024 |
  30. |      X       |      X       |        X         |
  54. |      X       |              |        X         |
  19. |              |      X       |        X         |
+      -------------- -------------- ------------------
 
 Para consultar a nova sequência gerada digitamos os comandos abaixo:
 GETBIT acesso:25-ou-26-05-2024 30 -- Retorno é 1
@@ -165,7 +167,24 @@ GETBIT acesso:25-ou-26-05-2024 19 -- Retorno é 1
 
 BITCOUNT acesso:25-ou-26-05-2024  -- Retorno é 3
 
-=============================================================
+===================================================
+
+Para adicionar elementos à esquerda de uma lista, utilize o comando LPUSH. Exemplo:
+LPUSH noticias 'Michael Jackson encontrado vivo na Bahia'
+LPUSH noticias 'Piada sobre bebida favorita do Gugu, revolta a internet'
+LPUSH noticias 'Moda ou simplesmente burrice: o tema da Terra plana"
+
+
+Para "aparar" a lista, utilizamos o comando LTRIM. Passa o range dos itens que queremos manter. Exemplo:
+LTRIM noticias 0 1 --No caso se houver itens na posição 2 ou maior, elas serão apagadas.
+
+Para realizar a leitura de um elemento de uma lista, utilize o comando LINDEX. Exemplo:
+LINDEX noticias 0 -- Zero sendo o index do elemento na lista.
+
+Para sabermos o tamanho atual da nossa lista, usamos o comando LLEN. Exemplo:
+LLEN noticias -- O retorno é 2
+
+
 
 
 
