@@ -1,0 +1,187 @@
+=== Java 17 ===
+
+interface       -> interface                    OK
+interface       -> class || abstract class      NOK
+abstract class  -> class                        OK
+class  -> abstract class                        OK
+record -> record, abstract class, interface     NOK
+
+
+// ====== JDBC 1 =======
+{
+    public static void main(String[] args) throws Exception {
+        var url = "jdbc:mysql://localhost:3306/REAL_DB";
+        var user = "root";
+        var password = "root";
+        var query = "Select ID, FIRSTNAME, LASTNAME, SALARY FROM EMPLOYEE ORDER BY ID";
+        try (var con = DriverManager.getConnection(url, user, password);
+            var stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);)
+        {      
+            var rs = stmt.executeQuery(query);
+            rs.absolute(1);               //Move o cursor para a linha informada, nesse contexto esse trecho é inutil e serve apenas para confundir o leitor do teste.
+            rs.moveToInsertRow();         //Move para uma linha especial para inclusão de novos registros(não é nen nenhum dos registros que estavam na base)
+            rs.updateInt(1, 105);         //Na linha de inserção, atualiza a coluna informado com o valor
+            rs.updateString(2, "Chris");  //Na linha de inserção, atualiza a coluna informado com o valor
+            rs.updateString(3, "Morris"); //Na linha de inserção, atualiza a coluna informado com o valor
+            rs.updateDouble(4, 25000);    //Na linha de inserção, atualiza a coluna informado com o valor
+            rs.insertRow(); 
+            //rs.deleteRow();  Não irão funcionar pois somente os metodos de consulta, inserção(insertRow) e atualização(updateInt, updateString...) irão funcionar na linha especial.
+            //rs.refreshRow(); Não irão funcionar pois somente os metodos de consulta, inserção(insertRow) e atualização(updateInt, updateString...) irão funcionar na linha especial.
+
+            System.out.println(rs.getInt(1));
+        }
+    }
+}
+//=== NECESSARIO REVISAR 001 ======
+{
+    public class Main {
+        public static void main(String[] args) {
+          ForkJoinPool pool = new ForkJoinPool(THREADS);
+          long sum = pool.invoke(new Adder.AdderTask(1, LIMIT));
+          System.out.printf( "sum of the number from %d to %d is %d %n", 1, LIMIT, sum);
+        }
+    }
+    public class Adder {
+      public static long LIMIT = 1000000000;
+      public static final int THREADS = 100;
+    
+      static class AdderTask extends RecursiveTask<Long> {
+        long from, to;
+    
+        public AdderTask(long from, long to) {
+          this.from = from;
+          this.to = to;
+        }
+    
+        @Override
+        protected Long compute() {
+          if ((to - from) <= LIMIT/THREADS) {
+            long localSum = 0;
+            for(long i = from; i <= to; i++) {
+              localSum += i;
+            }
+            return localSum;
+          }
+          else {
+            long mid = (from + to) / 2;
+            AdderTask first  = new AdderTask(from, mid);
+            AdderTask second = new AdderTask(mid + 1, to);
+            first.fork();
+            /*INSERT*/
+          }
+        }
+      }
+    }
+}
+//=== NECESSARIO REVISAR 002 ======
+public class Test {
+    public static void main(String[] args) {
+        // @FunctionalInterface => A interface que implementa representa uma função
+        // BiFunction<TipoArg1, TipoArg2, TipoResultado> =
+        BiFunction<Double, Double, Integer> compFunc = Double::compareTo;
+        System.out.println(compFunc.apply(10.01, 11.99));
+    }
+}
+
+//==== PEGADINHA 001 =====
+{
+    public static void main(String [] args) {
+        int num = 10;
+        if(num++ == num++) {
+            System.out.println("EQUAL " + num);
+        } else {
+            System.out.println("NOT EQUAL " + num);
+        }
+    }
+}
+//==== PEGADINHA 002 =====
+{
+    public class Test {
+        public static void main(String[] args) {
+            BiFunction<Double, Double, Integer> compFunc =  Double::compareTo;
+            System.out.println(compFunc.apply(10.01, 11.99));
+        }
+    }
+}
+//====== PEGADINHA(?) 003 =====
+{
+    class Person {
+        private String name;
+        private int age;
+      
+        public Person(String name, int age) {
+          this.name = name;
+          this.age = age;
+        }
+      
+        public String getName() {
+          return name;
+        }
+      
+        public int getAge() {
+          return age;
+        }
+      }
+      
+      class Student extends Person implements Serializable {
+        private String course;
+      
+        public Student(String name, int age, String course) {
+          super(name, age);
+          this.course = course;
+        }
+      
+        public String getCourse() {
+          return course;
+        }
+      }
+      
+      public class Main {
+        public static void main(String[] args) throws IOException, ClassNotFoundException {
+          var stud = new Student("Aamir", 25, "Computer Science"); //Não irá funcionar pois a classe Person não implementar Serializable.
+                                                                   //Funcionar se a classe Person implementar Serialiable, independente de a clase Student implementar
+          try (var oos = new ObjectOutputStream(new FileOutputStream(("D:\\stud.ser")));
+               var ois = new ObjectInputStream(
+                       new FileInputStream("D:\\stud.ser")))
+          {
+            oos.writeObject(stud);
+      
+            var s = (Student) ois.readObject();
+            System.out.printf("%s, %d, %s", s.getName(),
+                    s.getAge(), s.getCourse());
+          }
+        }
+      }
+}
+//====== PEGADINHA 004 ====
+{
+    public static void main(String[] args) {
+        var loc = new Locale("it", "IT"); 
+        loc.setDefault(loc); //Ao me deparar com esse código imaginei que ele não printaria nada a ver com a Italia, porem mesmo a instancia seta globalmente o valor default de localidade no sistema.
+        System.out.println(Locale.getDefault());
+    }
+}
+//====== PEGADINHA 005 ======
+{
+    public static void main(String[] args) 
+                                throws Exception {
+        var url = "jdbc:mysql://localhost:3306/ocp";
+        var user = "root";
+        var password = "password";
+        var query = "INSERT INTO EMPLOYEE VALUES(?, ?, ?, ?)";
+        try (var con = DriverManager
+                       .getConnection(url, user, password);
+             var ps = con.prepareStatement(query);
+        ) {
+            // Ao me deparar com esse codigo, a principio imaginei que daria erro em tempo de execução(imaginei que precisaria do comando insertRow) porem o JDBC entende que 
+            // ao setar um valor numa coluna, sem mover o cursor,  vc quer inserir um novo registro, porem, ao setar um novo valor para uma mesma coluna o valor é substituido, 
+            // ou seja, apenas um registro será inserido por vez.
+            ps.setInt(1, 101);
+            ps.setObject(3, "Smith");
+            ps.setString(2, "John");
+            ps.setDouble(4, 12000.0);
+            ps.setDouble(4, 12500.0);
+            ps.executeUpdate();
+        }
+    }
+}
