@@ -185,3 +185,94 @@ public class Test {
         }
     }
 }
+//====== PONTO DE ATENÇÃO 001 ======
+
+// O código abaixo compila e executa logando PET
+// não sabia da existencia do método SET num List
+public static void main(String[] args) {
+  List<String> list = new ArrayList<>();
+  list.add("P");
+  list.add("O");
+  list.add("T");                              // Ao setar na subList ele afeta a lista original
+  List<String> subList = list.subList(1, 2);  // Aqui ele retorna o tipo SubList, classe interna do ArrayList
+  subList.set(0, "E");                        // Ao setar na posição 0, como a sublista corresponde à posição 1 da lista original, logo a lista original ficará ['P', 'E', 'T']
+                                              // Sinceramente mexer com sublista e set parece ser bem perigoso, podendo manipular suas informações de forma errônea.
+                                              //--------------------------------------
+                                              // LISTA    | 0 | 1 | 2 |
+                                              //          | P | O | T |
+                                              //--------------------------------------
+                                              // SUBLISTA     | 0 |
+                                              //              | E |
+                                              //--------------------------------------
+  String s = String.join("", list);
+  System.out.println(s);
+}
+//====== PONTO DE ATENÇÃO 002 ======
+
+public static void main(String[] args) {
+  // D:.
+  // ├───Parent
+  // │   └───Child
+  // │           Message.txt
+  // │
+  // ├───Shortcut
+  // │       Child.lnk
+  // │
+  // └───Other
+  //     └───Logs 
+  var path1 = Paths.get("D:", "Other", "Logs");                              // D:\Other\Logs
+  var path2 = Paths.get("..", "..", "Shortcut", "Child.lnk", "Message.txt"); // ..\..\Shortcut\Child.lnk\Message.txt
+
+  //  Metodo resolve() é responsável por fazer a correlação entre dois Paths, resultando um unico Path.
+  //  Metodo resolveSibling() leva em consideração o Parent do Path para correlacionar com outro Path fornecido.
+  //  Metodo normalize() é responsável por sanitizar o Path de maneira que remova "comandos" de navegação.
+  //  A interface Path e suas implementações não validam se o caminho é existente ou não. Para isso utilize a classe File.
+  var path3 = path1.resolve(path2).normalize();
+  var path4 = path1.resolveSibling(path2).normalize();
+
+  // O codigo funcionara corretamente e irá printar true
+  
+  System.out.println(path3.equals(path4));
+  //  É true pois:
+  //    1° path1 é um caminho absoluto
+  //    2° path2 navega duas pastas para tras(acima) na hierarquia, anulando o que o metodo resolveSibling faz que é referenciar a pasta Other, parent da pasta Logs. 
+  //       └─> Dessa forma ao navegar duas vezes para tras, ambas se encontram na pasta D: resultando no true
+
+  //    path3 sem normalize = D:\Other\Logs\..\..\Shortcut\Child.lnk\Message.txt
+  //    path3 sem normalize = D:\Other\..\..\Shortcut\Child.lnk\Message.txt
+
+  // Caso houver apenas um recuo(..) de pasta, resultaria num false 
+}
+
+//====== PONTO DE ATENÇÃO 003 ======
+//  Which of the options of java command displays module resolution output?
+//  Resposta: --show-module-resolution
+
+
+//====== PONTO DE ATENÇÃO 004 ======
+public static void main(String[] args) {
+  double price = 90000;
+  String model; //Variavel não inicializada gera erro de compilação
+  if(price > 100000) {
+      model = "Tesla Model X";
+  } else if(price <= 100000) {
+      model = "Tesla Model S";
+  }
+  System.out.println(model);
+}
+//====== PONTO DE ATENÇÃO 005 ======
+private static final Integer VALUE = 1231;
+public static void main(String [] args)  {
+  var df1 = new DecimalFormat("###,##,#"); //1,23,1 EXPECTATIVA
+  var df2 = new DecimalFormat("##,###,#"); //123,1  EXPECTATIVA
+  var i = df1.format(VALUE); // "1.2.3.1"
+  var j = df2.format(VALUE); // "1.2.3.1"
+  
+  //  Os formatos acima são mesma coisa que este formato "#,#", traduzindo, cada digito é separado por ponto(.) (No padrão lixo estadunidense virgula)
+  //  Ao utilizar #, a ultima virgula e os caracteres consecutivos de digito(#), irão definir o resto do padrão de agrupamento, independente do que esteja escrito mais a esquerda.
+  //  (##,# == ######,# == #,##) - (##,## == #,##) - (#,### == ##,###)
+  //  Integer.MAX_VALUE => 2.1.4.7.4.8.3.6.4.7
+  //  Double.MAX_VALUE  => 1.7.9.7.6.9.3.1.3.4.8.6.2.3.1.5.7.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0
+  System.out.println(df1.format(VALUE)
+          .equals(df2.format(VALUE)));
+}
