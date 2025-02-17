@@ -46,7 +46,7 @@ resultado:03-05-2024:megasena "1,2,3,4,5,6"
 
 É possivel adicionar, num unico comando, inumeros atributos a serem salvos no Redis. Exemplo:
 
-MSET "nome_da_chave01" valor01 "nome_da_chave02" valor02 "nome_da_chave03" valor03
+MSET "nome_da_chave01" valor01 "nome_da_chave02" valor02 "nome_da_chave03" 'valor03'
 
 Para consultar as chaves, é possível utilizar padrão nas consultas. Exemplo
 KEYS "resultado*" --Tudo que começa com a palavra resultado
@@ -60,8 +60,8 @@ HSET resultado:24-05-2024:megasena "qtde_ganhadores" 3
 
 A estrutura, se desenhada, ficaria mais ou menos assim:
   resultado:24-05-2024:megasena
-    |_ "numeros" => "1,2,3,4,5,6"
-    |_ "qtde_ganhadores" => 3
+    ↳ "numeros"         → "1,2,3,4,5,6"
+    ↳ "qtde_ganhadores" → 3
 
 
 E para consultar utilizamos o HGET. Exemplos:
@@ -137,8 +137,7 @@ Para comparar duas ou mais sequências de bits, é necessário gerar um nova seq
  30. |      X       |      X       |        X         |
  54. |      X       |              |                  |
  19. |              |      X       |                  |
-      -------------- -------------- ------------------
-
+      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 Para gerar a sequência com a informações de comparação entre os dias 25 e 26 usaremos o seguinte comando:
 BITOP AND "acesso:25-e-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
 
@@ -149,8 +148,6 @@ GETBIT acesso:25-e-26-05-2024 19 -- Retorno é 0
 
 BITCOUNT acesso:25-e-26-05-2024  -- Retorno é 1
 
-
-
 Para queremos utiliza outra operação condicional. Usaremos o OR para comparar quem acessou a aplicação em qualquer dia. Segue o comando:
 BITOP OR "acesso:25-ou-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
       ______________ ______________ __________________
@@ -158,8 +155,7 @@ BITOP OR "acesso:25-ou-26-05-2024" "acesso:25-05-2024" "acesso:26-05-2024"
  30. |      X       |      X       |        X         |
  54. |      X       |              |        X         |
  19. |              |      X       |        X         |
-      -------------- -------------- ------------------
-
+      ‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 Para consultar a nova sequência gerada digitamos os comandos abaixo:
 GETBIT acesso:25-ou-26-05-2024 30 -- Retorno é 1
 GETBIT acesso:25-ou-26-05-2024 54 -- Retorno é 1
@@ -168,7 +164,7 @@ GETBIT acesso:25-ou-26-05-2024 19 -- Retorno é 1
 BITCOUNT acesso:25-ou-26-05-2024  -- Retorno é 3
 
 ===================================================
-
+[Listas]
 Para adicionar elementos à esquerda de uma lista, utilize o comando LPUSH. Exemplo:
 LPUSH noticias 'Michael Jackson encontrado vivo na Bahia'
 LPUSH noticias 'Piada sobre bebida favorita do Gugu, revolta a internet'
@@ -201,7 +197,7 @@ Para consultar varios valores de uma lista utilize o comando LRANGE. Exemplo:
 LRANGE noticias 0 1 --Se o valor final for maior que a quantidade total, ele não gera erro, mostra tudo que existe na lista.
 
 ===================================================
-Conjuntos
+[Conjuntos]
 
 Não há repetição de dados num conjunto.
 SADD times "São Paulo" -- Adiciona a string "São Paulo" ao conjunto times
@@ -215,12 +211,3 @@ SISMEMBER times "Vasco" -- Valida se o item "Vasco" está no conjunto times
 false
 SISMEMBER times "Flamengo" -- Valida se o item "Flamengo" está no conjunto times
 true
-
-
-
-
-
-
-
-
-
