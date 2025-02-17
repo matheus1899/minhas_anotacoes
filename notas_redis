@@ -172,7 +172,7 @@ BITCOUNT acesso:25-ou-26-05-2024  -- Retorno é 3
 Para adicionar elementos à esquerda de uma lista, utilize o comando LPUSH. Exemplo:
 LPUSH noticias 'Michael Jackson encontrado vivo na Bahia'
 LPUSH noticias 'Piada sobre bebida favorita do Gugu, revolta a internet'
-LPUSH noticias 'Moda ou simplesmente burrice: o tema da Terra plana"
+LPUSH noticias 'Moda ou simplesmente burrice: o tema da Terra plana'
 
 Para adicionar elementos à direita de uma lista, utilize o comando RPUSH. Exemplo:
 RPUSH 'fila:confirmaEmail' 'matheus@gmail.com'
@@ -191,6 +191,11 @@ Para pegar o primeiro item de uma lista e remove-lo da mesma:
 LPOP 'fila:confirmaEmail' -- Retorna matheus@gmail.com e sobra maria@outlook.com na lista
 LPOP 'fila:confirmaEmail' -- Retorna maria@outlook.com e a lista fica vazia
 LPOP 'fila:confirmaEmail' -- Retorna nulo
+
+Para pegar o primeiro item de uma lista e remove-la, caso esteja vazia, aguarde um tempo determinado, use BLPOP:
+Obs.: Evita que consulte a lista a todo tempo, evitando o uso de memória e CPU desnecessario.
+BLPOP 'fila:confirmaEmail' 100 -- Caso esteja vazia, aguarda por 100s. Se o tempo acabar, retorna nulo.
+BLPOP 'fila:confirmaEmail'   0 -- Caso esteja vazia, aguarda eternamente.
 
 Para consultar varios valores de uma lista utilize o comando LRANGE. Exemplo: 
 LRANGE noticias 0 1 --Se o valor final for maior que a quantidade total, ele não gera erro, mostra tudo que existe na lista.
