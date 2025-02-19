@@ -26,6 +26,7 @@ ping
 ou
 ECHO "mensagem"
 
+=========================================
 
 Para adicionar um atributo, use:
 SET "nome_da_chave" valor
@@ -114,6 +115,19 @@ INCRBYFLOAT compras:25-05-2024:valor 15.25
 Para decrementar um valor float qualquer, utilize o comando INCRBYFLOAT. Exemplo:
 DECRBYFLOAT compras:25-05-2024:valor 24.82
 
+Para incrementar um valor qualquer dentro de um hash, utilize o comando HINCRBY. Exemplo:
+HINCRBY compras:25-05-2024:valor 15
+
+Para decrementar um valor qualquer dentro de um hash, utilize o comando HINCRBY. Exemplo:
+HDECRBY compras:25-05-2024:valor 24
+
+Para incrementar um valor float qualquer dentro de um hash, utilize o comando HINCRBY. Exemplo:
+HINCRBYFLOAT compras:25-05-2024:valor 6.19
+
+Para decrementar um valor float qualquer dentro de um hash, utilize o comando HINCRBY. Exemplo:
+HDECRBYFLOAT compras:25-05-2024:valor 21.89
+
+
 Para salvar um booleano, utilize o comando SETBIT. Exemplo:
 SETBIT acesso:25-05-2024 30 1 (30 é o id e 1 é o valor)
 SETBIT acesso:25-05-2024 54 1 (54 é o id e 1 é o valor)
@@ -200,14 +214,157 @@ LRANGE noticias 0 1 --Se o valor final for maior que a quantidade total, ele nã
 [Conjuntos]
 
 Não há repetição de dados num conjunto.
-SADD times "São Paulo" -- Adiciona a string "São Paulo" ao conjunto times
-SADD times "Flamengo"  -- Adiciona a string "Flamengo" ao conjunto times
+SADD times "São Paulo"              -- Adiciona a string "São Paulo" ao conjunto times
+SADD times "Flamengo"               -- Adiciona a string "Flamengo" ao conjunto times
+SADD times "Salgueiro"              -- Adiciona a string "Salgueiro" ao conjunto times
+SADD times "Santa Cruz" "Sport"     -- Adiciona a string "Santa Cruz" e "Sport" ao conjunto times
 
 SMEMBERS times -- Lista o membros do conjunto times
 | 1 | São Paulo  |
 | 2 | Flamengo   |
+| 3 | Salgueiro  |
+| 4 | Santa Cruz |
+| 5 | Sport      |
+
+Para remover um item do conjunto use:
+SREM times "Sport"
 
 SISMEMBER times "Vasco" -- Valida se o item "Vasco" está no conjunto times
-false
+false (0)
 SISMEMBER times "Flamengo" -- Valida se o item "Flamengo" está no conjunto times
-true
+true  (1)
+
+Para consultar a quantidade de itens num conjunto utilize:
+SCARD times
+5
+
+SADD primeiraDivisao "São Paulo" "Flamengo"
+
+Para consultar a intersecção entre conjuntos use:
+SINTER times primeiraDivisao
+ ________________
+| 1 | São Paulo  |
+| 2 | Flamengo   |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+Para consultar a diferença entre conjuntos utilize:
+SDIFF times primeiraDivisao
+ ________________
+| 1 | Salgueiro  |
+| 2 | Santa Cruz |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+Para consulta a união entre conjuntos utilize SUNION. Mas antes vamos adicionar 
+um item na primeiraDivisao que não existe em times.
+SADD primeiraDivisao "AC Milan"
+
+E executamos o seguinte comando:
+SUNION times primeiraDivisao
+ ________________
+| 1 | São Paulo  |
+| 2 | Flamengo   |
+| 3 | Salgueiro  |
+| 4 | AC Milan   |
+| 5 | Santa Cruz |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+[Conjuntos ordenados]
+Para adicionar um conjunto com itens ordenados, utilizamos o ZADD:
+ZADD [nome_conjunto] [valor_para_ordenar] [id]
+Exemplo:
+      ZADD brasileirao 50 "São Paulo"
+      ZADD brasileirao 51 "Flamengo"
+      ZADD brasileirao 48 "Corinthians"
+
+Para ver a quantidade de itens no conjunto ordenado, utilize:
+ZCARD brasileirao       -> 3
+
+Para listar os id de um conjunto ordenado(crescente), utilize:
+ZRANGE [inicio] [fim]
+ZRANGE brasileirao 0 2
+ _________________
+| 1 | Corinthians |
+| 2 | São Paulo   |
+| 3 | Flamengo    |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+Para listar os id de um conjunto ordenado(decrescente), utilize:
+ZREVRANGE [inicio] [fim]
+ZREVRANGE brasileirao 0 2
+| 1 | Flamengo    |
+| 2 | São Paulo   |
+| 3 | Corinthians |
+
+Para listar os id e o score(usado para ordenar) de um conjunto ordenado(crescente), utilize:
+ZRANGE [inicio] [fim] WITHSCORES
+ZRANGE brasileirao 0 2 WITHSCORES
+ _________________
+| 1 | Corinthians |
+| 2 | 48          |
+| 3 | São Paulo   |
+| 4 | 50          |
+| 5 | Flamengo    |
+| 6 | 51          |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+Para listar os id e o score(usado para ordenar) de um conjunto ordenado(decrescente), utilize:
+ZREVRANGE [inicio] [fim] WITHSCORES
+ZREVRANGE brasileirao 0 2 WITHSCORES
+ _________________
+| 1 | Flamengo    |
+| 2 | 51          |
+| 3 | São Paulo   |
+| 4 | 50          |
+| 5 | Corinthians |
+| 6 | 48          |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+
+Para listar todos os id de um conjunto ordenado(crescente), vamos colocar no fim o -1:
+ZRANGE [inicio] [fim]
+ZRANGE brasileirao 0 -1 (Seria como se fosse uma lista circular)
+ _________________
+| 1 | Corinthians |
+| 2 | 48          |
+| 3 | São Paulo   |
+| 4 | 50          |
+| 5 | Flamengo    |
+| 6 | 51          |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+ ZRANGE brasileirao 0 -2 (Aqui eu pegaria até o penulitmo elemento)
+ _________________
+| 1 | Corinthians |
+| 2 | 48          |
+| 3 | São Paulo   |
+| 4 | 50          |
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+Para consultar o score(usado para ordenar) de um elemento especifico do conjunto ordenado, utilize:
+ZSCORE brasileirao "São Paulo" -> 50
+
+Para consultar o rank de um elemento especifico do conjunto ordenado(crescente), utilize:
+ZRANK brasileirao "Flamengo" -> 2
+
+Para consultar o rank de um elemento especifico do conjunto ordenado(decrescente), utilize:
+ZREVRANK brasileirao "Flamengo" -> 0
+
+Para incrementar o valor do score dentro do conjunto ordenado, utilize:
+ZINCRBY brasileirao 3 "Flamengo" (Incremento em 3)
+Consultando: zscore brasileiro "Flamengo" => 54
+
+Para decrementar o valor do score dentro do conjunto ordenado, utilize:
+ZINCRBY brasileirao 3 "Flamengo" (Decremento em 3)
+Consultando: zscore brasileiro "Flamengo" => 51
+
+
+===================================================
+
+Para conferir o tipo de uma chave utilize:
+TYPE times                          > set
+TYPE brasileirao                    > zset
+TYPE resultado:28-06-2024:megasena  > hash
+TYPE noticias                       > list
+
+===================================================
+Error: 0x80070422 The service cannot be started, either because it is disabled or because it has no enabled devices associated with it.
+
+Solução:
+Execute o cmd como Admin.
+E rode o programa: sc config LxssManager start=auto
