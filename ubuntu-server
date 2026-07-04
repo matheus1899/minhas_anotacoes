@@ -6,7 +6,7 @@ por isso tive que mexer no arquivo yaml de configuração do netplan (/etc/netpl
 Ok, talvez apos a instalação, você queira aumentar a fonte do terminal. No meu caso, meu monitor é fullhd e a fonte de uma certa distância fica ininteligível.
 Então execute o comando: sudo nano /etc/default/console-setup
 Vai abrir um arquivo de configuração. Lá tem o FONTSIZE="8x16". Confesso que não sei o que significa esse numero, se é pixels ou outra forma de se usar uma fonte.
-Vou alterar para 16x24
+Vou alterar para 16x32
 
 sudo update-initramfs -u //(-u significa update, assim como o -c é create)
 sudo reboot
