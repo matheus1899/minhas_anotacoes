@@ -74,5 +74,57 @@ Para conectar seu PC ao servidor utilize:
 ssh usuario_do_servidor@ip_que_configuramos
 
 Dessa forma ele irá pedir a senha do usuario do servidor, informe e dê Enter.
-Provavelmente deu bom. Importante. Tem que ter o SSH instalado no PC também, achei que fosse implicito e não mencionei antes. a show eno1
+Provavelmente deu bom. Se der um aviso, deleta o arquivo known_hosts na sua pasta de usuario => /home/seu_usuario_pc/known_hosts 
+Importante. Tem que ter o SSH instalado no PC também, achei que fosse implicito e não mencionei antes.
+
+// Agora faremos a configuração de chave pública e chave privada, 
+// de maneira que não necessitaremos mais de login e senha para conectar ao servidor.
+// Como não sei fazer isso, vou aprender e transcrever o processo para cá.
+
+Ok, na pasta /home/usuario do servidor e do PC deve existir a pasta .ssh; Caso não exista utilize:
+mkdir -p /home/usuario/.ssh => -p ele cria todas as pastas que não existe até caminho informado no caso criaria somente a .ssh
+
+No servidor, caso não exista, crie o arquivo authorized_keys
+touch authorized_keys
+
+No PC, execute o seguinte comando:
+ssh-keygen -t ed25519 => -t serve pra especificar o tipo de criptografia, ed25519 é o padrão de criptografia utilizado
+
+Logo em seguida vai ter a opção de alterar o nome do arquivo gerado, tanto o publico quanto privado.
+De deixe o padrão, não escrevi nada, logo ele criou dois arquivos. O id_ed25519.pub e o id_ed25519.
+O primeiro como indica a extensão, é a chave pública e o segundo, a chave privada.
+
+Depois você irá digitar o comando:
+ssh-copy-id nome_usuario_servidor@ip_do_servidor
+Se der certo a conexão, ele irá pedir a senha do usuario do servidor.
+
+Para validar se funcionou, olhamos o arquivo authorized_keys no servidor.
+Ao olha o arquivo, observaremos o tipo de criptografia usada, a chave e o usuario_pc@pc
+
+Pra finalizar o teste, fechamos todos os terminais no cliente e em seguida testamos a conexão usando:
+ssh nome_usuario_servidor@servidor
+Conectando sem pedir a senha, nossa configuração deu certo.
+
+Então se eu entendi corretamente, geramos uma chave publica e privada no cliente, cadastramos essa chave publica no servidor.
+Pelo o que a IA do Google disse(to me sentindo um imbecil inutil mas to aprendendo pelo menos), a chave privada é utilizada para
+validar se a chave publica cadastrada no servidor é mesmo minha. É valido pegar um fluxograma disso ocorrendo.
+No futuro é valido se aprofundar em cada comando usado.
+
+=== FIM DO CONFIGURAÇÃO DE SSH ===
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 lspci | grep -i network // TODO
