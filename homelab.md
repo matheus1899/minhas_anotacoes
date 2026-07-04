@@ -10,14 +10,14 @@ Então execute o comando:
 * `sudo nano /etc/default/console-setup`
 
 Vai abrir um arquivo de configuração. Lá tem o `FONTSIZE="8x16"`. Confesso que não sei o que significa esse numero, se é pixels ou outra forma de se usar uma fonte.
-Vou alterar para 16x32
+Vou alterar para `16x32`
 
   
 
 **IMPORTANTE:** Utiliza `Ctrl+O` e `Enter` para salvar o arquivo. E `Ctrl+X` para sair do editor.
 
 * `sudo update-initramfs -u`
- (-u significa update, assim como o -c é create)
+ (`-u` significa update, assim como o `-c` é create)
 
 Execute para aplicar as mudanças
 * `sudo reboot`
@@ -26,7 +26,9 @@ Execute para aplicar as mudanças
 ## SSH 
 
 * Para atualizar tudo do seu sistema: `sudo apt upgrade` 
-* Para instalar o SSH use: `sudo apt install -y openssh-server` (-y => Aceita automaticamente todos os avisos)
+* Para instalar o SSH use: `sudo apt install -y openssh-server`
+
+  `-y`=> Aceita automaticamente todos os avisos
 * Para habilitar o serviço, utilize: `sudo systemctl enable ssh`
 * Para executar o serviço utilize: `sudo systemctl start ssh`
 * Para executar os dois comandos acima de uma vez utilize: `sudo systemctl enable --now ssh`
@@ -40,7 +42,7 @@ Com isso, facilita um pouco minha vida ja que o PC e o monitor estão atras de m
 No seu PC você irá precisar do ipv4 do servidor, para consulta use o comando:
 * `ip address`
 
-Pode-se usar a abreviação que seria: ip a
+Pode-se usar a abreviação que seria: `ip a`
 
 No meu caso o ip é dinâmico, e isso é um problema, pois toda vez teremos que consultar no servidor.
 Para deixar o ip estático iremos manipular o arquivo /etc/netplan/00-installer-config.yaml
@@ -112,7 +114,9 @@ No servidor, caso não exista, crie o arquivo authorized_keys
 No PC, execute o seguinte comando:
 * `ssh-keygen -t ed25519`
 
--t serve pra especificar o tipo de criptografia, ed25519 [Criptografia de curva elíptica](https://pt.wikipedia.org/wiki/Criptografia_de_curva_el%C3%ADptica) é o padrão de criptografia utilizado
+`-t` serve pra especificar o tipo de criptografia, 
+
+`ed25519` [Criptografia de curva elíptica](https://pt.wikipedia.org/wiki/Criptografia_de_curva_el%C3%ADptica) é o padrão de criptografia utilizado
 
 Logo em seguida vai ter a opção de alterar o nome do arquivo gerado, tanto o publico quanto privado.
 De deixe o padrão, não escrevi nada, logo ele criou dois arquivos. O **id_ed25519.pub** e o **id_ed25519**.
