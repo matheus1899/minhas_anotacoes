@@ -139,6 +139,7 @@ Pelo o que a IA do Google disse(to me sentindo um imbecil inutil mas to aprenden
 validar se a chave publica cadastrada no servidor é mesmo minha. É valido pegar um fluxograma disso ocorrendo.
 No futuro é valido se aprofundar em cada comando usado.
 
-=== FIM DO CONFIGURAÇÃO DE SSH ===
+## Docker
+Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/install/ubuntu/
 
 lspci | grep -i network // TODO
