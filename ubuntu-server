@@ -3,7 +3,7 @@ Não usei a versão minimalista. Não instalei nada alem do sistema, nem SSH. Fa
 Instalar com rede conectada facilita bastante a vida. Na primeira trouxe mais problemas como não obter IPV4 da rede, 
 por isso tive que mexer no arquivo yaml de configuração do netplan (/etc/netplan/00-installer-config.yaml) além de forçar a captura de um IPV4 do linux
 
-Ok, talvez apos a instalação, você queira aumentar a fonte do terminal. No meu caso, meu monitor é fullhd e a fonte de uma certa distância fica ineligivel.
+Ok, talvez apos a instalação, você queira aumentar a fonte do terminal. No meu caso, meu monitor é fullhd e a fonte de uma certa distância fica ininteligível.
 Então execute o comando: sudo nano /etc/default/console-setup
 Vai abrir um arquivo de configuração. Lá tem o FONTSIZE="8x16". Confesso que não sei o que significa esse numero, se é pixels ou outra forma de se usar uma fonte.
 Vou alterar para 16x24
