@@ -8,13 +8,71 @@ Então execute o comando: sudo nano /etc/default/console-setup
 Vai abrir um arquivo de configuração. Lá tem o FONTSIZE="8x16". Confesso que não sei o que significa esse numero, se é pixels ou outra forma de se usar uma fonte.
 Vou alterar para 16x32
 
+IMPORTANTE: Utiliza Ctrl+O e Enter para salvar o arquivo. E Ctrl+X para sair do editor.
+
 sudo update-initramfs -u //(-u significa update, assim como o -c é create)
 sudo reboot
 
 === SSH ===
-Com o SSH, é possivel fazer a gestão do servidor remotamente. Com isso, facilita um pouco minha vida ja que o PC e o monitor estão atras de mim.
+sudo apt upgrade //Para atualizar tudo do seu sistema.
+Para instalar o SSH use:
+sudo apt install -y openssh-server
+(-y => Aceita automaticamente todos os avisos)
+Para habilitar o serviço, utilize:
+sudo systemctl enable ssh
+Para executar o serviço utilize: 
+sudo systemctl start ssh
+Para executar os dois comandos acima de uma vez utilize:
+sudo systemctl enable --now ssh
 
-ip link
+Para configurar o firewall para uso do ssh use:
+sudo ufw allow ssh => O retorno foi: [Rules update - Rules update(v6)]
+sudo ufw reload    => O retorno foi: [Firewall not enabled (skipping reload)]
+
+Com o SSH, é possivel fazer a gestão do servidor remotamente. 
+Com isso, facilita um pouco minha vida ja que o PC e o monitor estão atras de mim.
+
+No seu PC você irá precisar do ipv4 do servidor, para consulta use o comando:
+ip address => Pode-se usar a abreviação que seria: ip a
+No meu caso o ip é dinâmico, e isso é um problema, pois toda vez teremos que consultar no servidor.
+Para deixar o ip estático iremos manipular o arquivo /etc/netplan/00-installer-config.yaml
+Para isso execute o comando:
 sudo nano /etc/netplan/00-installer-config.yaml
-ip -4 a show eno1
+
+Dessa forma o editor irá abrir. Farei as seguintes modificações:
+--------------------------------------------------------------------
+|              ANTES             |             DEPOIS              |
+--------------------------------------------------------------------
+|  network:                      |  network:                       |
+|    ethernets:                  |    ethernets:                   |
+|      nome_interface:           |      nome_interface:            |
+|        dhcp4: true             |        dhcp4: false             |
+|        dhcp6: true             |        dhcp6: false             |
+|        match:                  |                                 |
+|          macadress: ...        |      addresses:                 |
+|        setname: nome_interface |        - 192.168.1.60/24        |
+|    version: 2                  |      routes:                    |
+|                                |        - to: default            |
+|                                |          via: 192.168.1.1       |
+|                                |      match:                     |
+|                                |        macaddress: ...          |
+|                                |      setname: nome_interface    |
+|                                |    version: 2                   |
+--------------------------------------------------------------------
+IMPORTANTE(1): Não use tabulação nessa bomba, somente espaços.
+IMPORTANTE(2): Utiliza Ctrl+O e Enter para salvar o arquivo. E Ctrl+X para sair do editor.
+
+Para validar a formatação do aquivo, use:
+sudo netplan try
+
+E se tiver tudo ok, utilize o comando:
+sudo netplan apply
+
+No caso ao aplicar, deixei estático o ip: 192.168.1.60
+
+Para conectar seu PC ao servidor utilize:
+ssh usuario_do_servidor@ip_que_configuramos
+
+Dessa forma ele irá pedir a senha do usuario do servidor, informe e dê Enter.
+Provavelmente deu bom. Importante. Tem que ter o SSH instalado no PC também, achei que fosse implicito e não mencionei antes. a show eno1
 lspci | grep -i network // TODO
