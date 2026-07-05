@@ -201,7 +201,7 @@ pegaremos todo o conteudo mas não a pasta filmes em si, se não ficaria duplica
 
 `/usr/midia/filmes/` => Nesse ponto informamos a pasta destino dentro do servidor.
 
-Aqui funfou, coisa boa.
+Aqui funfou, coisa boa. E invertendo a origem e o destino conseguimos copiar do servidor para a nossa maquina local.
 
 ## Testando RSYNC
 
