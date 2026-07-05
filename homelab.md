@@ -160,6 +160,63 @@ Execute o comando para reiniciar o serviço do ssh: `sudo /etc/init.d/ssh reload
 Instalei o app SSH Terminal Client da Tower App Inc no meu celular.
 Ao informar a senha e tentar, autenticação falhou, como esperado.
 
+## Copia de arquivos via SSH
+
+Vamos lá, quebrei bastante cabeça com isso e era por bobagem.
+Meu objetivo é criar uma pasta no servidor chamada midia, dentro contem as pastas filmes e series.
+Minha ideia é copiar o conteudo da minha maquina, no caso um filme, para essa pasta.
+
+Como ja fiz, vou deletar tudo que foi feito e iniciamos aqui do zero.
+Então no servidor, vamos executar o comando
+
+`sudo mkdir -p /usr/midia/{filmes,series}`
+
+Com o -p ele garante que toda pasta inexiste nesse caminho seja criada.
+No caso criamos a pasta midia, e dentro dela duas pastas que falamos antes.
+
+Agora temos que garantir a permissão para gravar(foi aqui que eu estava "burrando")
+Primeiro vamos executar um `ls -la`. 
+Esse comando nos mostra as pastas e quem tem permissao de alterar.
+Vamos executar: `sudo chown -R usuario:grupo /usr/midia`
+No caso o `-R` garante que vai afetar tudo que está dentro da pasta midia
+
+Depois executamos novamente o comando `ls -la` para averiguarmos que deu certo
+
+Agora a hora da verdade. Vamos copiar do nosso PC ao servidor.
+Utilizaremos o comando `scp`. Na minha pasta de Videos no PC pessoal, organizei uma pasta
+de filmes e outra de series, Infelizmente não tenho nenhuma série então vamos de filmes.
+
+Executaremos o seguinte comando e logo vamos destrincha-lo
+
+`scp -r -v /home/usuario/Vídeos/filmes/* usuario@ip_servidor:/usr/midia/filmes/`
+
+`-r` => implica que ele irá copiar recursivamente todo o contéudo existente na pasta origem que definimos
+
+`-v` => Aqui habilita o verbose.
+
+`/home/usuario/Vídeos/filmes/*` => Pasta origem, estamos copiando todo o conteudo de filmes. O * garante que 
+pegaremos todo o conteudo mas não a pasta filmes em si, se não ficaria duplicado no servidor.
+
+`usuario@ipservidor:[porta]` => Aqui é o que vimos anteriormente. No caso podemos informar a porta, mas é a padrão(22) logo não precisa
+
+`/usr/midia/filmes/` => Nesse ponto informamos a pasta destino dentro do servidor.
+
+Aqui funfou, coisa boa.
+
+## Testando RSYNC
+
+Vamos tentar refazer o mesmo processo porem, com outro comando. Deletei os arquivos do servidor.
+
+`rsync -avP /home/usuario/Vídeos/filmes/* usuario@ip_servidor:/usr/midia/filmes/`
+
+`-a` => Preserva todas as propriedades do arquivo
+
+`-v` => Verbose... n precisa de explicação.
+
+`-P` => Mostra o progresso da execução
+
+Funcionou perfeitamente.
+
 ## Docker
 Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/install/ubuntu/
 
