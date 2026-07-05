@@ -139,6 +139,27 @@ Pelo o que a IA do Google disse(to me sentindo um imbecil inutil mas to aprenden
 validar se a chave publica cadastrada no servidor é mesmo minha. É valido pegar um fluxograma disso ocorrendo.
 No futuro é valido se aprofundar em cada comando usado.
 
+## Segurança no SSH
+Desabilitando uso de senha no SSH, login apenas por chave publica/privada
+
+`sudo nano /etc/ssh/sshd_config`
+
+Alterei os seguinte parametros para:
+
+```
+PubkeyAuthentication yes
+PasswordAuthentication no
+UsePAM no
+```
+No Ubuntu o arquivo `/etc/ssh/sshd_config.d/*.conf` tem precedência. 
+No meu caso como instalei depois, entendo que não preenchou nada.
+Pelo menos o ls -la não trouxe nada alem de `. ..`
+
+Execute o comando para reiniciar o serviço do ssh: `sudo /etc/init.d/ssh reload`
+
+Instalei o app SSH Terminal Client da Tower App Inc no meu celular.
+Ao informar a senha e tentar, autenticação falhou, como esperado.
+
 ## Docker
 Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/install/ubuntu/
 
