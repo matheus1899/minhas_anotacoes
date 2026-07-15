@@ -233,4 +233,4 @@ maquina => Nome da maquina que está utilizando
 
 $ => Indica que o usuário não tem privilégio de super usuário.
  
-# indica que o usuário tem privilégio de super usuário
+'#' indica que o usuário tem privilégio de super usuário
