@@ -223,9 +223,14 @@ Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/i
 lspci | grep -i network // TODO
 
 ## Linux Básico 
-usuario@maquina:~$
-usuario => indica o nome do usuario atual. meio óbvio mas...
-maquina => Nome da maquina que está utilizando 
-:~ => Indica o caminho no qual usuario se encontra, no caso ~ significa /home/usuario
-$ => Indica que o usuário não tem privilégio de super usuário. # indica que o usuário tem privilégio de super usuário
+'usuario@maquina:~$'
 
+usuario => indica o nome do usuario atual. meio óbvio mas...
+
+maquina => Nome da maquina que está utilizando
+
+:~ => Indica o caminho no qual usuario se encontra, no caso ~ significa /home/usuario
+
+$ => Indica que o usuário não tem privilégio de super usuário.
+ 
+# indica que o usuário tem privilégio de super usuário
