@@ -222,7 +222,7 @@ Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/i
 
 lspci | grep -i network // TODO
 
-## Linux Básico 
+# Linux Básico + Certificação Linux
 'usuario@maquina:~$'
 
 usuario => indica o nome do usuario atual. meio óbvio mas...
