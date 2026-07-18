@@ -232,3 +232,5 @@ maquina => Nome da maquina que está utilizando
 :~ => Indica o caminho no qual usuario se encontra, no caso ~ significa /home/usuario
 
 $ => Indica que o usuário não tem privilégio de super usuário e '#' indica que o usuário tem privilégio de super usuário
+
+---------------------------
