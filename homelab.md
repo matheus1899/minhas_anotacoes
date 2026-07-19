@@ -237,7 +237,17 @@ mkdir caminho/nome_da_pasta => Criando diretorio no caminho especificado, com o 
 
 rm -r caminho/pasta => Deleta arquivos e pastas, o -r significa que vai trabalhar recursivamente, deletando o conteudo das pastas.
 
-###Usando o VI
+ls => Lista arquivos e diretorios
+
+ls -l => Lista arquivo e diretorios com mais detalhes. Dica, se começa com d é diretorio, se começa com - é arquivo e se começa com l é link simbolico.
+
+drwxr-xr-x => Diretorio
+
+-rwxr-xr-x => Arquivo
+
+lrwxr-xr-x => Link simbólico
+
+## Usando o VI
 
 Esc + : => Ativa o modo de comando
 
