@@ -229,17 +229,17 @@ usuario => indica o nome do usuario atual. meio óbvio mas...
 
 maquina => Nome da maquina que está utilizando
 
-~ => Indica o caminho no qual usuario se encontra, no caso ~ significa /home/usuario. No caso do root seria /root
+~ => Indica o caminho no qual usuario se encontra é o padrão do usuário, no caso ~ significa /home/usuario. No caso do root seria /root.
 
 $ => Indica que o usuário não tem privilégio de super usuário e '#' indica que o usuário tem privilégio de super usuário
 
-mkdir caminho/nome_da_pasta => Criando diretorio no caminho especificado, com o nome especificado
+`mkdir caminho/nome_da_pasta` => Criando diretorio no caminho especificado, com o nome especificado
 
-rm -r caminho/pasta => Deleta arquivos e pastas, o -r significa que vai trabalhar recursivamente, deletando o conteudo das pastas.
+`rm -r caminho/pasta` => Deleta arquivos e pastas, o -r significa que vai trabalhar recursivamente, deletando o conteudo das pastas.
 
-ls => Lista arquivos e diretorios
+`ls` => Lista arquivos e diretorios
 
-ls -l => Lista arquivo e diretorios com mais detalhes. Dica, se começa com d é diretorio, se começa com - é arquivo e se começa com l é link simbolico.
+`ls -l` => Lista arquivo e diretorios com mais detalhes. Dica, se começa com d é diretorio, se começa com - é arquivo e se começa com l é link simbolico.
 
 drwxr-xr-x => Diretorio
 
@@ -247,11 +247,66 @@ drwxr-xr-x => Diretorio
 
 lrwxr-xr-x => Link simbólico
 
+`ls -a` => Mostra tudo que está na pasta, inclusive arquivos e pastas escondidas (nome começa com .)
+
+`mv` => Mover e renomear arquivo
+
+`mv nome_atual nome_novo` => Renomeando arquivo
+
+`cp` => Copia um arquivo
+
+`cp arquivo arquivo.bkp` => Criando uma cópia do arquivo
+
+## Alterando mensagem inicial do servidor
+
+`sudo apt install linuxlogo`
+
+Com esse comando, vai ser criado na pasta /etc o issue.linuxlogo
+
+Vamos fazer o backup do issue original
+
+`sudo cp /etc/issue /etc/issue.bkp`
+
+Depois vamos usar o comando:
+
+`cat /etc/issue.linuxlogo > /etc/issue`
+
+Ele copiou o conteudo do issue.linuxlogo para o issue. Vamos validar:
+
+`cat /etc/issue`
+
+Depois, vamos reiniciar
+`sudo reboot`
+
+## systemd
+
+`systemd-analyze` => Nos dá a informação de inicialização da maquina, em tempo e separado por processo
+Output: 
+```
+Startup finished in 26.723s (firmware) + 4.172s (loader) + 654ms (kernel) + 5.937s (initrd) + 2min 13.701s (userspace) = 2min 51.188s`
+```
 ## Usando o VI
 
-Esc + : => Ativa o modo de comando
+`i` => Permite a edição de um arquivo. Insere em cima do cursor.
 
-wq => "Write and quit", salvar e sair. Necessario estar no modo de comando.
+`a` => Também permite a edição. Insere à esquerda do cursor.
+
+`Esc + :` => Ativa o modo de comando
+
+`wq` => "Write and quit", salvar e sair. Necessario estar no modo de comando.
+
+`cat arquivo` => Mostra o conteudo do arquivo de cima para baixo.
+
+`tac arquivo` => Mostra o conteudo do arquivo de baixo para cima. Bom para logs
+
+`Esc + u` => Desfazer
+
+`q!` => Sai do editor sem salvar
+
+`set number` => Mostra o número das linhas
+
+
+
 
 
 
