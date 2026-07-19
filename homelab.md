@@ -327,34 +327,9 @@ Firmware Version: ...
 Usando o comando `systemctl`, obteremos o status de todos os serviços executando na máquina:
 Output:
 ```
-UNIT                                                                                                   LOAD   ACT>
-  proc-sys-fs-binfmt_misc.automount                                                                      loaded act>
-  sys-devices-pci0000:00-0000:00:16.3-0000:00:16.3:0-0000:00:16.3:0.0-tty-ttyS4.device                   loaded act>
-  sys-devices-pci0000:00-0000:00:19.0-net-eno1.device                                                    loaded act>
-  sys-devices-pci0000:00-0000:00:19.0-ptp-ptp0.device                                                    loaded act>
-  sys-devices-pci0000:00-0000:00:1b.0-sound-card0-controlC0.device                                       loaded act>
-  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda1.device               loaded act>
-  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda2.device               loaded act>
-  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda3.device               loaded act>
-  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda.device                    loaded act>
-  sys-devices-platform-serial8250-serial8250:0-serial8250:0.1-tty-ttyS1.device                           loaded act>
-  sys-devices-platform-serial8250-serial8250:0-serial8250:0.2-tty-ttyS2.device                           loaded act>
-  sys-devices-platform-serial8250-serial8250:0-serial8250:0.3-tty-ttyS3.device                           loaded act>
-  sys-devices-pnp0-00:01-00:01:0-00:01:0.0-tty-ttyS0.device                                              loaded act>
-  sys-devices-pnp0-00:02-tpm-tpm0.device                                                                 loaded act>
-  sys-devices-virtual-block-dm\x2d0.device                                                               loaded act>
-  sys-devices-virtual-misc-rfkill.device                                                                 loaded act>
-  sys-devices-virtual-net-br\x2d3056d7897f3c.device                                                      loaded act>
-  sys-devices-virtual-net-br\x2dadc6eff47ec6.device                                                      loaded act>
-  sys-devices-virtual-net-docker0.device                                                                 loaded act>
-  sys-devices-virtual-net-vethfdfb7da.device                                                             loaded act>
-  sys-devices-virtual-tty-ttyprintk.device                                                               loaded act>
-  sys-module-configfs.device                                                                             loaded act>
-  sys-module-fuse.device                                                                                 loaded act>
-  sys-subsystem-net-devices-br\x2d3056d7897f3c.device                                                    loaded act>
-  sys-subsystem-net-devices-br\x2dadc6eff47ec6.device                                                    loaded active plugged   /sys/subsystem/net/devices/br-adc6eff47ec6
+UNIT                                                                                                   LOAD     sys-subsystem-net-devices-br\x2dadc6eff47ec6.device                                                    loaded active plugged   /sys/subsystem/net/devices/br-adc6eff47ec6
   sys-subsystem-net-devices-docker0.device                                                               loaded active plugged   /sys/subsystem/net/devices/docker0
-  sys-subsystem-net-devices-eno1.device                                                                  loaded active plugged   82579LM Gigabit Network Connection (Lewisville)
+  sys-subsystem-net-devices-eno1.device                                                                  loaded active plugged   ... Gigabit Network Connection (Lewisville)
   sys-subsystem-net-devices-vethfdfb7da.device                                                           loaded active plugged   /sys/subsystem/net/devices/vethfdfb7da                                                           
   -.mount                                                                                                loaded active mounted   Root Mount
   boot-efi.mount                                                                                         loaded active mounted   /boot/efi
@@ -370,8 +345,6 @@ UNIT                                                                            
   sys-kernel-tracing.mount                                                                               loaded active mounted   Kernel Trace File System
   tmp.mount                                                                                              loaded active mounted   Temporary Directory /tmp
   var-lib-docker-rootfs-overlayfs-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.mount loaded active mounted   /var/lib/docker/rootfs/overlayfs/0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665
-  systemd-ask-password-console.path                                                                      loaded active waiting   Dispatch Password Requests to Console Directory Watch
-  systemd-ask-password-wall.path                                                                         loaded active waiting   Forward Password Requests to Wall Directory Watch
 ...
 ```
 
