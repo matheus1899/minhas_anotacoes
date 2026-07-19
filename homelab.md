@@ -246,6 +246,22 @@ Output:
 
 Aqui observamos que temos somente uma interface de conexão com a rede
 
+Usando o comando `lspci -s 00:19.0 -v`, o `-s` filtra pelo dominio e o `-v` é o verbose que traz mais informações que podem ser pertinentes.
+
+Output:
+```
+00:19.0 Ethernet controller: Intel Corporation ... Gigabit Network Connection (Lewisville) (rev 04)
+        DeviceName:  Onboard LAN
+        Subsystem: Lenovo
+        Flags: bus master, fast devsel, latency 0, IRQ 26
+        Memory at f7c00000 (32-bit, non-prefetchable) [size=128K]
+        Memory at f7c39000 (32-bit, non-prefetchable) [size=4K]
+        I/O ports at f080 [size=32]
+        Capabilities: <access denied>
+        Kernel driver in use: e1000e
+        Kernel modules: e1000e
+```
+
 Usando `ip address` ou `ip addr` ou ainda `ip a` nos informa sobre os ip da maquina:
 
 ```
@@ -266,11 +282,14 @@ Usando `ip address` ou `ip addr` ou ainda `ip a` nos informa sobre os ip da maqu
     inet6 fe80::fe4d:d4ff:fe4d:48e5/64 scope link proto kernel_ll 
        valid_lft forever preferred_lft forever
 ```
-O lo, ou loopback é permite que um cliente no mesmo host consiga se comunicar, usando protocolo TCP/IP. Ele utiliza a ip 127.0.0.1 com máscara de rede 8. Essa máscará equivala à 255.0.0.0
+O lo, ou loopback é permite que um cliente no mesmo host consiga se comunicar, usando protocolo TCP/IP, internamente. Ele utiliza a ip 127.0.0.1 com máscara de rede 8. Essa máscará equivala à 255.0.0.0.
 
-Já o eno1 corresponde à interface fisica do computador:
+Já o eno1 corresponde à interface fisica do computador.
+
 `link/ether` significa a endereço fisico da placa de rede. Essa informação é mais conhecida como MAC Address.
 `inet` é o ip da maquina na sua rede local. No meu caso a máscara é 24 que equivale à 255.255.255.0.
+
+
 
 Executando o comando `ifdown nome_interface` você irá reiniciar as configurações de conexão, sem necessariamente precisar de reiniciar a máquina.
 
