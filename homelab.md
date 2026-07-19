@@ -147,13 +147,14 @@ Desabilitando uso de senha no SSH, login apenas por chave publica/privada
 Alterei os seguinte parametros para:
 
 ```
+PermitRootLogin no
 PubkeyAuthentication yes
 PasswordAuthentication no
 UsePAM no
 ```
 No Ubuntu o arquivo `/etc/ssh/sshd_config.d/*.conf` tem precedência. 
 No meu caso como instalei depois, entendo que não preenchou nada.
-Pelo menos o ls -la não trouxe nada alem de `. ..`
+Pelo menos o ls -la não trouxe nada alem de `.` e `..`
 
 Execute o comando para reiniciar o serviço do ssh: `sudo /etc/init.d/ssh reload`
 
