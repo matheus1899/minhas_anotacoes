@@ -289,7 +289,15 @@ Já o eno1 corresponde à interface fisica do computador.
 `link/ether` significa a endereço fisico da placa de rede. Essa informação é mais conhecida como MAC Address.
 `inet` é o ip da maquina na sua rede local. No meu caso a máscara é 24 que equivale à 255.255.255.0.
 
-
+Já o comando `ip link show` nós traz a informação do `ip a` mas resumida:
+```
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether fc:4d:d4:4d:48:e5 brd ff:ff:ff:ff:ff:ff
+    altname enp0s25
+    altname enxfc4dd44d48e5
+```
 
 Executando o comando `ifdown nome_interface` você irá reiniciar as configurações de conexão, sem necessariamente precisar de reiniciar a máquina.
 
