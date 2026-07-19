@@ -218,6 +218,29 @@ Vamos tentar refazer o mesmo processo porem, com outro comando. Deletei os arqui
 
 Funcionou perfeitamente.
 
+## Desabilitando o usuario root
+
+No bloco anterior já desabilitamos o root via SSH, agora vamos desabilitar pra quem tem acesso físico ao servidor. Começamos com:
+
+`sudo passwd -l root`
+
+O `-l` ou `--lock` bloqueia a senha do usuario informado(root no nosso caso).
+
+Nos arquivo `/etc/passwd` e `/etc/passwd-` encontre o usuario root. No meu caso antes estava assim
+```
+root:x:0:0:root:/root:/bin/bash
+```
+E alterei para ficar assim:
+```
+root:x:0:0:root:/root:/sbin/nologin
+```
+Para validar se funcionou utilize o comando `sudo su`.
+
+No caso a mensagem que deve aparecer é:
+```
+This account is currently not available.
+```
+
 ## Docker
 Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/install/ubuntu/
 
