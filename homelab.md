@@ -222,6 +222,60 @@ Seguindo o tutorial funcionou tranquilamente => https://docs.docker.com/engine/i
 
 lspci | grep -i network // TODO
 
+## Servidor de arquivo/web/banco
+
+Usando o comando `lspci`, irá listar tudo que está conectado à maquina:
+
+Output:
+
+```
+00:00.0 Host bridge: Intel Corporation Xeon E3-1200 v2/3rd Gen Core processor DRAM Controller (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation Xeon E3-1200 v2/3rd Gen Core processor Graphics Controller (rev 09)
+00:14.0 USB controller: Intel Corporation 7 Series/C210 Series Chipset Family USB xHCI Host Controller (rev 04)
+00:16.0 Communication controller: Intel Corporation 7 Series/C216 Chipset Family MEI Controller #1 (rev 04)
+00:16.3 Serial controller: Intel Corporation 7 Series/C210 Series Chipset Family KT Controller (rev 04)
+00:19.0 Ethernet controller: Intel Corporation 82579LM Gigabit Network Connection (Lewisville) (rev 04)
+00:1a.0 USB controller: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #2 (rev 04)
+00:1b.0 Audio device: Intel Corporation 7 Series/C216 Chipset Family High Definition Audio Controller (rev 04)
+00:1d.0 USB controller: Intel Corporation 7 Series/C216 Chipset Family USB Enhanced Host Controller #1 (rev 04)
+00:1e.0 PCI bridge: Intel Corporation 82801 PCI Bridge (rev a4)
+00:1f.0 ISA bridge: Intel Corporation Q77 Express Chipset LPC Controller (rev 04)
+00:1f.2 SATA controller: Intel Corporation 7 Series/C210 Series Chipset Family 6-port SATA Controller [AHCI mode] (rev 04)
+00:1f.3 SMBus: Intel Corporation 7 Series/C216 Chipset Family SMBus Controller (rev 04)
+```
+
+Aqui observamos que temos somente uma interface de conexão com a rede
+
+Usando `ip address` ou `ip addr` ou ainda `ip a` nos informa sobre os ip da maquina:
+
+```
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether fc:4d:d4:4d:48:e5 brd ff:ff:ff:ff:ff:ff
+    altname enp0s25
+    altname enxfc4dd44d48e5
+    inet 192.168.1.60/24 brd 192.168.1.255 scope global eno1
+       valid_lft forever preferred_lft forever
+    inet6 2804:214:800d:645f:fe4d:d4ff:fe4d:48e5/64 scope global dynamic mngtmpaddr noprefixroute 
+       valid_lft 195505sec preferred_lft 109105sec
+    inet6 fe80::fe4d:d4ff:fe4d:48e5/64 scope link proto kernel_ll 
+       valid_lft forever preferred_lft forever
+```
+O lo, ou loopback é permite que um cliente no mesmo host consiga se comunicar, usando protocolo TCP/IP. Ele utiliza a ip 127.0.0.1 com máscara de rede 8. Essa máscará equivala à 255.0.0.0
+
+Já o eno1 corresponde à interface fisica do computador:
+`link/ether` significa a endereço fisico da placa de rede. Essa informação é mais conhecida como MAC Address.
+`inet` é o ip da maquina na sua rede local. No meu caso a máscara é 24 que equivale à 255.255.255.0.
+
+Executando o comando `ifdown nome_interface` você irá reiniciar as configurações de conexão, sem necessariamente precisar de reiniciar a máquina.
+
+Já executando o comando `ifup nome_interface`, ele irá buscar um novo IP no servidor DHCP do seu modem. No meu caso, o ip é estático.
+
 # Linux Básico + Certificação Linux
 'usuario@maquina:~$'
 
@@ -349,20 +403,19 @@ UNIT                                                                            
 ...
 ```
 
-`systemctl status ssh.service` => Pegando status de um serviço
+`sudo systemctl status ssh.service` => Pegando status de um serviço
 
-`systemctl stop ssh.service` => Parando um serviço
+`sudo systemctl stop ssh.service` => Parando um serviço
 
-`systemctl start ssh.service` => Iniciando um serviço
+`sudo systemctl start ssh.service` => Iniciando um serviço
 
-`systemctl restart ssh.service` => Reiniciando um serviço
+`sudo systemctl restart ssh.service` => Reiniciando um serviço
 
-`systemctl enable ssh.service` => Habilita o serviço para iniciar junto com o sistema
+`sudo systemctl enable ssh.service` => Habilita o serviço para iniciar junto com o sistema
 
-`systemctl disable ssh.service` => Desabilita o serviço para iniciar junto com o sistema
+`sudo systemctl disable ssh.service` => Desabilita o serviço para iniciar junto com o sistema
 
-`systemctl is-enable ssh.service` => Valida se o serviço está habilitado iniciar junto com o sistema
-
+`sudo systemctl is-enable ssh.service` => Valida se o serviço está habilitado iniciar junto com o sistema
 
 
 ## Usando o VI
