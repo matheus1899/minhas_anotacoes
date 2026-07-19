@@ -229,7 +229,7 @@ usuario => indica o nome do usuario atual. meio óbvio mas...
 
 maquina => Nome da maquina que está utilizando
 
-:~ => Indica o caminho no qual usuario se encontra, no caso ~ significa /home/usuario
+~ => Indica o caminho no qual usuario se encontra, no caso ~ significa /home/usuario. No caso do root seria /root
 
 $ => Indica que o usuário não tem privilégio de super usuário e '#' indica que o usuário tem privilégio de super usuário
 
