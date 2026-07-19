@@ -233,4 +233,16 @@ maquina => Nome da maquina que está utilizando
 
 $ => Indica que o usuário não tem privilégio de super usuário e '#' indica que o usuário tem privilégio de super usuário
 
+mkdir caminho/nome_da_pasta => Criando diretorio no caminho especificado, com o nome especificado
+
+rm -r caminho/pasta => Deleta arquivos e pastas, o -r significa que vai trabalhar recursivamente, deletando o conteudo das pastas.
+
+###Usando o VI
+
+Esc + : => Ativa o modo de comando
+
+wq => "Write and quit", salvar e sair. Necessario estar no modo de comando.
+
+
+
 ---------------------------
