@@ -288,6 +288,7 @@ Startup finished in 26.723s (firmware) + 4.172s (loader) + 654ms (kernel) + 5.93
 
 Para uma consulta ainda mais detalhada use:
 `systemd-analyze blame`
+
 Output:
 ```
 2min 43ms systemd-networkd-wait-online.service
@@ -300,46 +301,83 @@ Output:
   11.538s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1\x2dpart3.device
   11.538s dev-sda3.device
   11.538s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2dpartuuid-d2da897f\x2d63ea\x2d41c6\x2d>
-  11.538s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart3.device
-  11.538s sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda3.device
-  11.336s dev-disk-by\x2did-wwn\x2d0x5000c500601f0294\x2dpart1.device
-  11.336s dev-disk-by\x2did-scsi\x2d35000c500601f0294\x2dpart1.device
-  11.336s sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda1.device
-  11.336s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2duuid-4CDB\x2d4FA0.device
-  11.336s dev-disk-by\x2ddiskseq-9\x2dpart1.device
-  11.336s dev-disk-by\x2duuid-4CDB\x2d4FA0.device
-  11.336s dev-sda1.device
-  11.336s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2dpartuuid-e59de908\x2de1c7\x2d4bbd\x2d>
-  11.333s dev-disk-by\x2dpartuuid-e59de908\x2de1c7\x2d4bbd\x2d8f89\x2d8d835307c58b.device
-  11.333s dev-disk-by\x2did-ata\x2dST500DM002\x2d1BD142_W2AQKHM6\x2dpart1.device
-  11.333s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2dpartnum-1.device
-  11.333s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1\x2dpart1.device
-  11.333s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart1.device
-  11.315s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2dpartnum-2.device
-  11.315s dev-disk-by\x2did-scsi\x2d35000c500601f0294\x2dpart2.device
-  11.315s dev-disk-by\x2did-ata\x2dST500DM002\x2d1BD142_W2AQKHM6\x2dpart2.device
-  11.315s dev-disk-by\x2dpartuuid-6db5e9cc\x2da138\x2d450f\x2d90e9\x2d224e65705a3a.device
-  11.315s dev-disk-by\x2ddiskseq-9\x2dpart2.device
-  11.315s dev-disk-by\x2duuid-4a30f90d\x2d4b93\x2d43cd\x2d9e8a\x2d4e052a04361f.device
-  11.315s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2duuid-4a30f90d\x2d4b93\x2d43cd\x2d9e8a>
-  11.315s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1\x2dpart2.device
-  11.315s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart2.device
-  11.315s dev-disk-by\x2did-wwn\x2d0x5000c500601f0294\x2dpart2.device
-  11.315s dev-sda2.device
-  11.315s sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda2.device
-  11.315s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0\x2dpart-by\x2dpartuuid-6db5e9cc\x2da138\x2d450f\x2d>
-  11.207s dev-disk-by\x2ddiskseq-9.device
-  11.207s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.device
-  11.207s dev-disk-by\x2did-scsi\x2d35000c500601f0294.device
-  11.207s dev-disk-by\x2dpath-pci\x2d0000:00:1f.2\x2data\x2d1.0.device
-  11.207s dev-sda.device
-  11.207s sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda.device
-  11.207s dev-disk-by\x2did-wwn\x2d0x5000c500601f0294.device
-  11.207s dev-disk-by\x2did-ata\x2dST500DM002\x2d1BD142_W2AQKHM6.device
-  10.087s dev-rfkill.device
-  10.086s sys-devices-virtual-misc-rfkill.device
  ...
 ```
+
+Usando o proximo comando, teremos informações da maquina de forma enxuta:
+`hostnamectl`
+
+Output:
+```
+ Static hostname: servidor-casa
+       Icon name: computer-desktop
+         Chassis: desktop 🖥
+      Machine ID: ...
+         Boot ID: ...
+Operating System: Ubuntu 26.04 LTS                
+          Kernel: Linux 7.0.0-28-generic
+    Architecture: x86-64
+ Hardware Vendor: Lenovo
+  Hardware Model: ThinkCentre
+    Hardware SKU: LENOVO
+Firmware Version: ...
+   Firmware Date: ...
+    Firmware Age: ...
+```
+Usando o comando `systemctl`, obteremos o status de todos os serviços executando na máquina:
+Output:
+```
+  UNIT                                                                                                   LOAD   ACT>
+  proc-sys-fs-binfmt_misc.automount                                                                      loaded act>
+  sys-devices-pci0000:00-0000:00:16.3-0000:00:16.3:0-0000:00:16.3:0.0-tty-ttyS4.device                   loaded act>
+  sys-devices-pci0000:00-0000:00:19.0-net-eno1.device                                                    loaded act>
+  sys-devices-pci0000:00-0000:00:19.0-ptp-ptp0.device                                                    loaded act>
+  sys-devices-pci0000:00-0000:00:1b.0-sound-card0-controlC0.device                                       loaded act>
+  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda1.device               loaded act>
+  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda2.device               loaded act>
+  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda-sda3.device               loaded act>
+  sys-devices-pci0000:00-0000:00:1f.2-ata1-host0-target0:0:0-0:0:0:0-block-sda.device                    loaded act>
+  sys-devices-platform-serial8250-serial8250:0-serial8250:0.1-tty-ttyS1.device                           loaded act>
+  sys-devices-platform-serial8250-serial8250:0-serial8250:0.2-tty-ttyS2.device                           loaded act>
+  sys-devices-platform-serial8250-serial8250:0-serial8250:0.3-tty-ttyS3.device                           loaded act>
+  sys-devices-pnp0-00:01-00:01:0-00:01:0.0-tty-ttyS0.device                                              loaded act>
+  sys-devices-pnp0-00:02-tpm-tpm0.device                                                                 loaded act>
+  sys-devices-virtual-block-dm\x2d0.device                                                               loaded act>
+  sys-devices-virtual-misc-rfkill.device                                                                 loaded act>
+  sys-devices-virtual-net-br\x2d3056d7897f3c.device                                                      loaded act>
+  sys-devices-virtual-net-br\x2dadc6eff47ec6.device                                                      loaded act>
+  sys-devices-virtual-net-docker0.device                                                                 loaded act>
+  sys-devices-virtual-net-vethfdfb7da.device                                                             loaded act>
+  sys-devices-virtual-tty-ttyprintk.device                                                               loaded act>
+  sys-module-configfs.device                                                                             loaded act>
+  sys-module-fuse.device                                                                                 loaded act>
+  sys-subsystem-net-devices-br\x2d3056d7897f3c.device                                                    loaded act>
+  sys-subsystem-net-devices-br\x2dadc6eff47ec6.device                                                    loaded act>
+  sys-subsystem-net-devices-docker0.device                                                               loaded act>
+  sys-subsystem-net-devices-eno1.device                                                                  loaded act>
+  sys-subsystem-net-devices-vethfdfb7da.device                                                           loaded act>
+  -.mount                                                                                                loaded act>
+  boot-efi.mount                                                                                         loaded act>
+  boot.mount                                                                                             loaded act>
+  dev-hugepages.mount                                                                                    loaded act>
+  dev-mqueue.mount                                                                                       loaded act>
+  proc-sys-fs-binfmt_misc.mount                                                                          loaded act>
+  run-docker-netns-5b1e2bb83462.mount                                                                    loaded act>
+  run-user-1000.mount                                                                                    loaded act>
+  sys-fs-fuse-connections.mount                                                                          loaded act>
+  sys-kernel-config.mount                                                                                loaded act>
+  sys-kernel-debug.mount                                                                                 loaded act>
+  sys-kernel-tracing.mount                                                                               loaded act>
+  tmp.mount                                                                                              loaded act>
+  var-lib-docker-rootfs-overlayfs-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.mount loaded act>
+  systemd-ask-password-console.path                                                                      loaded act>
+  systemd-ask-password-wall.path                                                                         loaded act>
+  docker-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.scope                          loaded act>
+  init.scope                                                                                             loaded act>
+  session-1.scope                                                                                        loaded act>
+  session-3.scope                                                                                        loaded act
+```
+
 
 ## Usando o VI
 
