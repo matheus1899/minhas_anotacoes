@@ -325,6 +325,7 @@ Firmware Version: ...
     Firmware Age: ...
 ```
 Usando o comando `systemctl`, obteremos o status de todos os serviços executando na máquina:
+
 Output:
 ```
 UNIT                                                                                                   LOAD     sys-subsystem-net-devices-br\x2dadc6eff47ec6.device                                                    loaded active plugged   /sys/subsystem/net/devices/br-adc6eff47ec6
@@ -347,6 +348,21 @@ UNIT                                                                            
   var-lib-docker-rootfs-overlayfs-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.mount loaded active mounted   /var/lib/docker/rootfs/overlayfs/0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665
 ...
 ```
+
+`systemctl status ssh.service` => Pegando status de um serviço
+
+`systemctl stop ssh.service` => Parando um serviço
+
+`systemctl start ssh.service` => Iniciando um serviço
+
+`systemctl restart ssh.service` => Reiniciando um serviço
+
+`systemctl enable ssh.service` => Habilita o serviço para iniciar junto com o sistema
+
+`systemctl disable ssh.service` => Desabilita o serviço para iniciar junto com o sistema
+
+`systemctl is-enable ssh.service` => Valida se o serviço está habilitado iniciar junto com o sistema
+
 
 
 ## Usando o VI
