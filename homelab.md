@@ -327,7 +327,7 @@ Firmware Version: ...
 Usando o comando `systemctl`, obteremos o status de todos os serviços executando na máquina:
 Output:
 ```
-  UNIT                                                                                                   LOAD   ACT>
+UNIT                                                                                                   LOAD   ACT>
   proc-sys-fs-binfmt_misc.automount                                                                      loaded act>
   sys-devices-pci0000:00-0000:00:16.3-0000:00:16.3:0-0000:00:16.3:0.0-tty-ttyS4.device                   loaded act>
   sys-devices-pci0000:00-0000:00:19.0-net-eno1.device                                                    loaded act>
@@ -352,30 +352,27 @@ Output:
   sys-module-configfs.device                                                                             loaded act>
   sys-module-fuse.device                                                                                 loaded act>
   sys-subsystem-net-devices-br\x2d3056d7897f3c.device                                                    loaded act>
-  sys-subsystem-net-devices-br\x2dadc6eff47ec6.device                                                    loaded act>
-  sys-subsystem-net-devices-docker0.device                                                               loaded act>
-  sys-subsystem-net-devices-eno1.device                                                                  loaded act>
-  sys-subsystem-net-devices-vethfdfb7da.device                                                           loaded act>
-  -.mount                                                                                                loaded act>
-  boot-efi.mount                                                                                         loaded act>
-  boot.mount                                                                                             loaded act>
-  dev-hugepages.mount                                                                                    loaded act>
-  dev-mqueue.mount                                                                                       loaded act>
-  proc-sys-fs-binfmt_misc.mount                                                                          loaded act>
-  run-docker-netns-5b1e2bb83462.mount                                                                    loaded act>
-  run-user-1000.mount                                                                                    loaded act>
-  sys-fs-fuse-connections.mount                                                                          loaded act>
-  sys-kernel-config.mount                                                                                loaded act>
-  sys-kernel-debug.mount                                                                                 loaded act>
-  sys-kernel-tracing.mount                                                                               loaded act>
-  tmp.mount                                                                                              loaded act>
-  var-lib-docker-rootfs-overlayfs-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.mount loaded act>
-  systemd-ask-password-console.path                                                                      loaded act>
-  systemd-ask-password-wall.path                                                                         loaded act>
-  docker-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.scope                          loaded act>
-  init.scope                                                                                             loaded act>
-  session-1.scope                                                                                        loaded act>
-  session-3.scope                                                                                        loaded act
+  sys-subsystem-net-devices-br\x2dadc6eff47ec6.device                                                    loaded active plugged   /sys/subsystem/net/devices/br-adc6eff47ec6
+  sys-subsystem-net-devices-docker0.device                                                               loaded active plugged   /sys/subsystem/net/devices/docker0
+  sys-subsystem-net-devices-eno1.device                                                                  loaded active plugged   82579LM Gigabit Network Connection (Lewisville)
+  sys-subsystem-net-devices-vethfdfb7da.device                                                           loaded active plugged   /sys/subsystem/net/devices/vethfdfb7da                                                           
+  -.mount                                                                                                loaded active mounted   Root Mount
+  boot-efi.mount                                                                                         loaded active mounted   /boot/efi
+  boot.mount                                                                                             loaded active mounted   /boot
+  dev-hugepages.mount                                                                                    loaded active mounted   Huge Pages File System
+  dev-mqueue.mount                                                                                       loaded active mounted   POSIX Message Queue File System
+  proc-sys-fs-binfmt_misc.mount                                                                          loaded active mounted   Arbitrary Executable File Formats File System
+  run-docker-netns-5b1e2bb83462.mount                                                                    loaded active mounted   /run/docker/netns/5b1e2bb83462
+  run-user-1000.mount                                                                                    loaded active mounted   /run/user/1000
+  sys-fs-fuse-connections.mount                                                                          loaded active mounted   FUSE Control File System
+  sys-kernel-config.mount                                                                                loaded active mounted   Kernel Configuration File System
+  sys-kernel-debug.mount                                                                                 loaded active mounted   Kernel Debug File System
+  sys-kernel-tracing.mount                                                                               loaded active mounted   Kernel Trace File System
+  tmp.mount                                                                                              loaded active mounted   Temporary Directory /tmp
+  var-lib-docker-rootfs-overlayfs-0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665.mount loaded active mounted   /var/lib/docker/rootfs/overlayfs/0a894d1f8713bb3af3f23e4a660191cd4896087717d494560af837c8c8d76665
+  systemd-ask-password-console.path                                                                      loaded active waiting   Dispatch Password Requests to Console Directory Watch
+  systemd-ask-password-wall.path                                                                         loaded active waiting   Forward Password Requests to Wall Directory Watch
+...
 ```
 
 
