@@ -33,7 +33,10 @@ alterando o shell para a próxima inicialização
 chsh -s /bin/bash/
 
 
-No livro é proposto o seguinte exercício. Conectar dois terminais num mesmo sistema e a partir de um encontrar o outro e usar o comando write para se comunicar com o outro terminal. E usar o comando mesg para barrar isso. Porem no Ubuntu já vem sem esse comando write, logo não consegui replicar.
+No livro é proposto o seguinte exercício. 
+Conectar dois terminais num mesmo sistema e a partir de um encontrar o outro e usar o comando write 
+para se comunicar com o outro terminal. 
+E usar o comando mesg para barrar isso. Porem no Ubuntu já vem sem esse comando write, logo não consegui replicar.
 
 
 
