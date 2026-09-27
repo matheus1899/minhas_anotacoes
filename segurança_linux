@@ -1,0 +1,37 @@
+• terminais e pseudoterminais
+
+terminal => conexão física direta ao servidor
+pseudoterminal=> conexão indireta ao servidor(Konsole, Gnome Terminal ou uma conexão SSH p.e.)
+
+listando usuarios com teclado físico conectado ao servidor 
+ls -l /dev/tty[1-6]
+
+listando usuarios com conexão remota ao servidor
+ls -l /dev/pts/0-5]
+
+
+ao logar com meu usuário e executar o comando sudo su, e autenticando, executei o comando tty com o root e apareceu /dev/pts/0.
+
+ao reexcutar o comando ls -l /dev/tty[1-6], aparece meu usuário(tenorio), mesmo com sudo su.
+
+Já executando o segundo comando, ls -l /dev/pts/[0-5]
+aparece a sessão do root.
+
+Não sei se é uma medida de segurança que, ao subir para super usuário, um novo pseudoterminal é aberto com exclusividade(independente de eu estar conectado diretamente ou não ao servidor) isolando o usuário original que não é root.
+
+
+• shell
+Interpretador do comando. Faz o meio de campo entre o terminal(exibe o que digitei e o que retorna do shell) e o Kernel.
+
+listando os shells disponíveis no SO
+cat /etc/shells
+
+para listar o caminho dos shells
+ls -l $(cat /etc/shells)
+
+alterando o shell para a próxima inicialização
+chsh -s /bin/bash/
+
+
+
+
